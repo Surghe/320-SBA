@@ -1,58 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchAnimeList } from '../api';
-import axios from 'axios';
+import { AnimeContext } from '../context/AnimeContext';
 
 export default function AnimeForm() {
-  // State for form fields
-  const [title, setTitle] = useState('');
-  const [synopsis, setSynopsis] = useState('');
-  const [episodes, setEpisodes] = useState('');
-  const [score, setScore] = useState('');
-  const [loading, setLoading] = useState(false);
-
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = !!id;
 
-  // Fetch anime data for editing
+  const { createAnime, updateAnime, findAnimeById } = useContext(AnimeContext);
+
+  const [title, setTitle] = useState('');
+  const [synopsis, setSynopsis] = useState('');
+  const [episodes, setEpisodes] = useState('');
+  const [score, setScore] = useState('');
+
   useEffect(() => {
     if (isEdit) {
-      console.log(`Loading anime with ID ${id} for editing...`);
-      setLoading(true);
-
-      fetchAnimeList()
-        .then(res => {
-          const anime = res.data.data;
-          console.log('Loaded anime:', anime);
-          setTitle(anime.title || '');
-          setSynopsis(anime.synopsis || '');
-          setEpisodes(anime.episodes || '');
-          setScore(anime.score || '');
-          setLoading(false);
-        })
-        .catch(err => {
-          console.error('Error loading anime:', err);
-          setLoading(false);
-        });
+      const anime = findAnimeById(id);
+      if (anime) {
+        console.log('Editing anime:', anime);
+        setTitle(anime.title || '');
+        setSynopsis(anime.synopsis || '');
+        setEpisodes(anime.episodes || '');
+        setScore(anime.score || '');
+      }
     }
-  }, [id, isEdit]);
+  }, [id, isEdit, findAnimeById]);
 
-  // Handle form submission (fake update/create)
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const animeData = { title, synopsis, episodes, score };
-    console.log(isEdit ? 'Updating anime:' : 'Creating anime:', animeData);
 
-    // Simulate save (in a real app, you would send a POST/PUT request)
-    setTimeout(() => {
-      alert(isEdit ? 'Anime updated (simulation).' : 'Anime created (simulation).');
-      navigate('/anime');
-    }, 500);
+    if (isEdit) {
+      updateAnime(id, animeData);
+      alert('Anime updated (simulated)');
+    } else {
+      createAnime(animeData);
+      alert('Anime created (simulated)');
+    }
+
+    navigate('/anime');
   };
-
-  if (loading) return <div>Loading form...</div>;
 
   return (
     <div>

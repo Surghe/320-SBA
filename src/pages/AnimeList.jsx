@@ -1,30 +1,17 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { fetchAnimeList } from '../api';
+// pages/AnimeList.jsx
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AnimeContext } from '../context/AnimeContext';
 
 export default function AnimeList() {
-  // State to store anime list
+  const { getAllAnime } = useContext(AnimeContext);
   const [animeList, setAnimeList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  // Fetch anime on component mount
+  // Load from context
   useEffect(() => {
-    console.log('Fetching anime list...');
-    
-    fetchAnimeList()
-      .then(response => {
-        console.log('Anime data fetched:', response.data.data);
-        setAnimeList(response.data.data);
-        setLoading(true);
-      })
-      .catch(error => {
-        console.error('Error fetching anime:', error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading anime list...</div>;
+    console.log('Loading anime from context...');
+    setAnimeList(getAllAnime());
+  }, [getAllAnime]);
 
   return (
     <div>
