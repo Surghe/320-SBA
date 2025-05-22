@@ -15,7 +15,7 @@ export default function AnimeList() {
       .then(response => {
         console.log('Anime data fetched:', response.data.data);
         setAnimeList(response.data.data);
-        setLoading(false);
+        setLoading(true);
       })
       .catch(error => {
         console.error('Error fetching anime:', error);
