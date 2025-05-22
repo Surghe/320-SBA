@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { fetchAnimeList } from '../api';
 import axios from 'axios';
 
 export default function AnimeForm() {
@@ -20,7 +21,7 @@ export default function AnimeForm() {
       console.log(`Loading anime with ID ${id} for editing...`);
       setLoading(true);
 
-      axios.get(`https://api.jikan.moe/v4/anime/${id}`)
+      fetchAnimeList()
         .then(res => {
           const anime = res.data.data;
           console.log('Loaded anime:', anime);

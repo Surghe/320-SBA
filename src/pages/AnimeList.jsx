@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { fetchAnimeList } from '../api';
 import { Link } from 'react-router-dom';
 
 export default function AnimeList() {
@@ -11,7 +12,7 @@ export default function AnimeList() {
   useEffect(() => {
     console.log('Fetching anime list...');
     
-    axios.get('https://api.jikan.moe/v4/anime')
+    fetchAnimeList()
       .then(response => {
         console.log('Anime data fetched:', response.data.data);
         setAnimeList(response.data.data);

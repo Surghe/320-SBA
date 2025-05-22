@@ -1,6 +1,7 @@
 // pages/AnimeDetail.jsx
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { fetchAnimeList } from '../api';
 import axios from 'axios';
 
 export default function AnimeDetail() {
@@ -15,7 +16,7 @@ export default function AnimeDetail() {
   useEffect(() => {
     console.log(`Fetching details for anime ID: ${id}`);
 
-    axios.get(`https://api.jikan.moe/v4/anime/${id}`)
+    fetchAnimeList()
       .then(response => {
         console.log('Anime detail data:', response.data.data);
         setAnime(response.data.data);
