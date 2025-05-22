@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter } from 'react-router-dom';
+import Home from './pages/Home';
+import AnimeList from './pages/AnimeList';
+import AnimeDetail from './pages/AnimeDetail';
+import AnimeForm from './pages/AnimeForm';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function App () {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className="p-4">
+        /* Navigation Links */
+        <nav className="mb-4">
+          <Link to="/" className="mr-4">Home</Link>
+          <Link to="/anime">Anime List</Link>
+        </nav>
+
+        /* Application Routes */
+        <Routes>
+          /* Home Page */
+          <Route path="/" element={<Home />} />
+
+          /* List of Anime */
+          <Route path="/anime" element={<AnimeList />} />
+
+          /* Anime Detail Page */
+          <Route path="/anime/:id" element={<AnimeDetail />} />
+
+          /* Form for Editing Anime */
+          <Route path="/anime/edit/:id" element={<AnimeForm />} />
+
+          /* Form for Creating New Anime */
+          <Route path="/anime/new" element={<AnimeForm />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+// Console log to ensure App is loading
+console.log("App component loaded");
+
+
+export default App;
