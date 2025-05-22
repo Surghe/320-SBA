@@ -1,5 +1,5 @@
 // pages/AnimeDetail.jsx
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { AnimeContext } from '../context/AnimeContext';
 

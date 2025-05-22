@@ -1,6 +1,7 @@
 import './App.css'
-import { BrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
+import { BrowserRouter } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import AnimeList from './pages/AnimeList';
 import AnimeDetail from './pages/AnimeDetail';
 import AnimeForm from './pages/AnimeForm';
@@ -18,7 +19,7 @@ function App () {
         /* Application Routes */
         <Routes>
           /* Home Page */
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<HomePage />} />
 
           /* List of Anime */
           <Route path="/anime" element={<AnimeList />} />
